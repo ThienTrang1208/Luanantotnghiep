@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginForm from "./components/Login/LoginForm/LoginForm";
 import LoginForgetForm from "./components/Login/LoginForgetForm/LoginForgetForm";
 import Giaodiennguoidung from "./components/Giaodiennguoidung/Header";
-import BaiDang from "./components/Baidang/Post";
+import BaiDang from "./components/Baidang/Posts";
 
 
 function App() {
