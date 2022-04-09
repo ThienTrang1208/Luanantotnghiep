@@ -4,7 +4,7 @@ import './Style-post.css'
 import HinhDang from "./assets/hinhdang.jpg";
 
 export default function Post({ data, type }: any) {
-  const fakeImg = faker.random.image()
+  const fakeImg = faker.image.image()
   return (
     <div className="post__container">
       {/* image */}

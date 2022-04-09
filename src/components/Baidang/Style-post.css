@@ -169,8 +169,43 @@
 }
 
 .content-container {
-    margin-top: 70px;
+    margin-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.profile {
+    text-align: center;
+    width: 720px;
+}
+
+.profile .cover img{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.profile .avatar{
+    text-align: center;
+}
+
+.profile .avatar img{ 
+    border: solid 3px white;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: -75px;
+    margin-bottom: 8px;
+}
+
+.profile .name { 
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.filter {
+    width: 640px;
+    text-align: end;
 }

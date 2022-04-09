@@ -1,9 +1,8 @@
 import { MenuItem, Select } from '@mui/material'
-import Button from '@mui/material/Button'
-import ButtonGroup from '@mui/material/ButtonGroup'
 import Pagination from '@mui/material/Pagination'
 import React, { useEffect, useState } from 'react'
 import apiCaller from '../../utils/apiCaller'
+import avatar from './assets/hinhdang.jpg'
 import Post from './Post'
 import './Style-post.css'
 
@@ -22,21 +21,33 @@ export default function Posts() {
   useEffect(() => {
     fetchData()
   }, [page])
-  const buttons = [
-    <Button key="one" onClick={()=>setType(0)}>Bài viết gần đây</Button>,
-    <Button key="two" onClick={()=>setType(1)}>Bài viết cũ hơn</Button>,
-  ]
 
   return (
     <div className="content-container">
-      <Select
+      <div className="profile">
+        <div className="cover">
+          <img
+            src="https://i.pinimg.com/736x/17/08/9f/17089f4c221d8a8d19371546cf706fa0--twitter-cover-cover-pics.jpg"
+            alt=""
+          />
+        </div>
+        <div className="avatar">
+          <img src={avatar} alt="" />
+        </div>
+        <div className="name">
+          Hồng Xuân
+        </div>
+      </div>
+      <div className="filter">
+        <Select
           id="demo-simple-select"
           value={type}
-          onChange={(e: any)=>setType(e.target.value)}
+          onChange={(e: any) => setType(e.target.value)}
         >
           <MenuItem value={0}>Bài viết gần đây</MenuItem>
           <MenuItem value={1}>Bài viết cũ hơn</MenuItem>
         </Select>
+      </div>
       {data.map((e, idx) => (
         <Post key={idx} data={e} type={type} />
       ))}

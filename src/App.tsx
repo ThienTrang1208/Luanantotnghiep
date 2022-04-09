@@ -1,21 +1,46 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import LoginForm from "./components/Login/LoginForm/LoginForm";
-import LoginForgetForm from "./components/Login/LoginForgetForm/LoginForgetForm";
-import Giaodiennguoidung from "./components/Giaodiennguoidung/Header";
-import BaiDang from "./components/Baidang/Posts";
+import { onAuthStateChanged } from 'firebase/auth'
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { AuthProvider } from './AuthContext'
+import BaiDang from './components/Baidang/Posts'
+import Giaodiennguoidung from './components/Giaodiennguoidung/Header'
+// import LoginForgetForm from './components/Login/LoginForgetForm/LoginForgetForm'
+import LoginForm from './components/Login/LoginForm/LoginForm'
+import Register from './components/Register/Register'
+import XacnhanEmail from './components/XacnhanEmail/XacnhanEmail'
+import { auth } from './firebase'
+import PrivateRoute from './PrivateRoute'
 
 
 function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route path="password-reset" element={<LoginForgetForm />} />
-        <Route  path={'main' } element={<><Giaodiennguoidung /><BaiDang/></>}></Route>
-      </Routes>
-    </div>
-  );
-}
+  const [currentUser, setCurrentUser] = useState(null)
+  const [timeActive, setTimeActive] = useState(false)
 
-export default App;
+  useEffect(() => {
+    onAuthStateChanged(auth, (user: any) => {
+      setCurrentUser(user)
+    })
+  }, [])
+  return (
+    <Router>
+      <AuthProvider value={{ currentUser, timeActive, setTimeActive }}>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path="/verify-email" element={<XacnhanEmail />} />
+          <Route path="/" element={<LoginForm />} />
+          {/* <Route path="password-reset" element={<LoginForgetForm />} /> */}
+          <Route
+            path="main"
+            element={
+              <PrivateRoute>
+                <Giaodiennguoidung />
+                <BaiDang />
+              </PrivateRoute>
+            }
+          ></Route>
+        </Routes>
+      </AuthProvider>
+    </Router>
+  )
+}
+export default App

@@ -1,47 +1,58 @@
 import {
+  createUserWithEmailAndPassword,
   sendEmailVerification,
-  signInWithEmailAndPassword,
-  User,
 } from 'firebase/auth'
 import { useState } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuthValue } from '../../../AuthContext'
-import { auth } from '../../../firebase'
-import '../Login.css'
-import iconPassword from './image/IconPassword.png'
+import { useAuthValue } from '../../AuthContext'
+import { auth } from '../../firebase'
+import iconPassword from '../Login/LoginForm/image/IconPassword.png'
+import './register.css'
 
-function LoginForm() {
+function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
-  const { setTimeActive }: any = useAuthValue()
   const navigate = useNavigate()
+  const { setTimeActive }: any = useAuthValue()
 
-  const login = (e: any) => {
+  const validatePassword = () => {
+    let isValid = true
+    if (password !== '' && confirmPassword !== '') {
+      if (password !== confirmPassword) {
+        isValid = false
+        setError('Passwords does not match')
+      }
+    }
+    return isValid
+  }
+
+  const register = (e: any) => {
     e.preventDefault()
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        if (!auth?.currentUser?.emailVerified) {
-          console.log('haha');
-          
+    setError('')
+    if (validatePassword()) {
+      // Create a new user with email and password using firebase
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
           sendEmailVerification(auth?.currentUser as any)
             .then(() => {
               setTimeActive(true)
               navigate('/verify-email')
             })
             .catch((err) => alert(err.message))
-        } else {
-          navigate('/main')
-        }
-      })
-      .catch((err) => setError(err.message))
+        })
+        .catch((err) => setError(err.message))
+    }
+    setEmail('')
+    setPassword('')
+    setConfirmPassword('')
   }
-
   return (
     <div className="login">
       <div className="Bao">
-        <form onSubmit={login} name="login_form">
+        <form onSubmit={register} name="registration_form">
           <h3 className="form-title">Đăng nhập</h3>
 
           <div className="form-group">
@@ -69,12 +80,26 @@ function LoginForm() {
               className="form-control"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
+              placeholder="Mật khẩu"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">
+              Xác nhận Mật khẩu
+            </label>
+            <img src={iconPassword} className="form-icon" alt="Icon Password" />
+            <input
+              type="password"
+              className="form-control"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Xác nhận Mật khẩu"
             />
           </div>
 
           <button className="form-submit btn-login" type="submit">
-            Đăng nhập
+            Đăng ký
           </button>
           {error && <div className="auth__error">{error}</div>}
           <div>
@@ -88,4 +113,4 @@ function LoginForm() {
   )
 }
 
-export default LoginForm
+export default Register
