@@ -27,10 +27,10 @@ function App() {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/verify-email" element={<XacnhanEmail />} />
-          <Route path="/" element={<LoginForm />} />
+          <Route path="/login" element={<LoginForm />} />
           {/* <Route path="password-reset" element={<LoginForgetForm />} /> */}
           <Route
-            path="main"
+            path="/"
             element={
               <PrivateRoute>
                 <Giaodiennguoidung />

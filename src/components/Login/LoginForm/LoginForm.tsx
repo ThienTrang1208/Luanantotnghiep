@@ -32,7 +32,7 @@ function LoginForm() {
             })
             .catch((err) => alert(err.message))
         } else {
-          navigate('/main')
+          navigate('/')
         }
       })
       .catch((err) => setError(err.message))
