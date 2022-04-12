@@ -1,7 +1,7 @@
 import {
   sendEmailVerification,
   signInWithEmailAndPassword,
-  User,
+  sendPasswordResetEmail,
 } from 'firebase/auth'
 import { useState } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
@@ -23,8 +23,6 @@ function LoginForm() {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         if (!auth?.currentUser?.emailVerified) {
-          console.log('haha');
-          
           sendEmailVerification(auth?.currentUser as any)
             .then(() => {
               setTimeActive(true)
@@ -77,10 +75,17 @@ function LoginForm() {
             Đăng nhập
           </button>
           {error && <div className="auth__error">{error}</div>}
-          <div>
-            <Link to="/register" className="form-option">
-              Đăng ký tài khoản
-            </Link>
+          <div className="wrapper">
+            <div>
+              <Link to="/register" className="form-option">
+                Đăng ký tài khoản
+              </Link>
+            </div>
+            <div>
+              <Link to="/reset-password" className="form-option">
+                Quên mật khẩu?
+              </Link>
+            </div>
           </div>
         </form>
       </div>

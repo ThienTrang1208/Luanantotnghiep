@@ -53,7 +53,7 @@ function Register() {
     <div className="login">
       <div className="Bao">
         <form onSubmit={register} name="registration_form">
-          <h3 className="form-title">Đăng nhập</h3>
+          <h3 className="form-title">Đăng ký tài khoản</h3>
 
           <div className="form-group">
             <label htmlFor="account" className="form-label">
@@ -103,8 +103,8 @@ function Register() {
           </button>
           {error && <div className="auth__error">{error}</div>}
           <div>
-            <Link to="/register" className="form-option">
-              Đăng ký tài khoản
+            <Link to="/login" className="form-option">
+              Đã có tài khoản?
             </Link>
           </div>
         </form>

@@ -7,10 +7,10 @@ import Giaodiennguoidung from './components/Giaodiennguoidung/Header'
 // import LoginForgetForm from './components/Login/LoginForgetForm/LoginForgetForm'
 import LoginForm from './components/Login/LoginForm/LoginForm'
 import Register from './components/Register/Register'
+import ResetPassword from './components/ResetPassword/ResetPassword'
 import XacnhanEmail from './components/XacnhanEmail/XacnhanEmail'
 import { auth } from './firebase'
 import PrivateRoute from './PrivateRoute'
-
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null)
@@ -28,6 +28,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/verify-email" element={<XacnhanEmail />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           {/* <Route path="password-reset" element={<LoginForgetForm />} /> */}
           <Route
             path="/"
