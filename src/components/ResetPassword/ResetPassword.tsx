@@ -12,8 +12,6 @@ function ResetPassword() {
   const [error, setError] = useState('')
 
   const forgotPassword = (email:string) => {
-    console.log('em', email);
-    
     sendPasswordResetEmail(auth,email)
       .then(function () {
         alert('Hãy kiểm tra email của bạn...')
